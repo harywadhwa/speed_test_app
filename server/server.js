@@ -23,9 +23,17 @@ function generateTextContent(sizeInBits) {
   return text;
 }
 
+app.post('/upload', (req, res) => {
+    req.on('data', (chunk) => {
+        chunk.toString(FORMAT);
+    });
+    res.send('Data received');
+});
+
+
 app.get('/download', (req, res) => {
-  const textContent = generateTextContent(1000000);
-  const filePath = path.join(__dirname, '1Mb_textfile.txt');
+  const textContent = generateTextContent(100000000);
+  const filePath = path.join(__dirname, '100Mb_textfile.txt');
 
   // Write text content to file
   fs.writeFile(filePath, textContent, (err) => {
@@ -35,7 +43,7 @@ app.get('/download', (req, res) => {
       } else {
           // Set response headers
           res.setHeader('Content-Type', 'text/plain');
-          res.setHeader('Content-Disposition', 'attachment; filename=1MB_textfile.txt');
+          res.setHeader('Content-Disposition', 'attachment; filename=100Mb_textfile.txt');
 
           // Send file as response
           const fileStream = fs.createReadStream(filePath);
