@@ -1,8 +1,9 @@
+import 'package:client/widgets/function_form.dart';
 import 'package:flutter/material.dart';
 import 'controllers/download_func.dart';
 import 'controllers/upload_func.dart';
 
-const String HOST = '172.21.32.1';
+const String HOST = '192.168.1.7';
 const int PORT = 1234;
 const String serverUrl = 'http://$HOST:$PORT';
 
@@ -86,114 +87,52 @@ class _SpeedTestPageState extends State<SpeedTestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFFEEEEFF),
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(0),
-        child: AppBar(
-          backgroundColor: Color(0xFF000AFF),
-          automaticallyImplyLeading: false,
-          actions: [],
-          centerTitle: true,
-          elevation: 0,
-        ),
+      backgroundColor: const Color.fromRGBO(238, 238, 255, 1),
+      appBar: AppBar(
+        elevation: 0.0,
+        backgroundColor: const Color.fromRGBO(238, 238, 255, 1),
       ),
-      body: SafeArea(
-        top: true,
-        child: Stack(
+      body: Center(
+        child: Column(
           children: [
             Container(
-              width: 434,
-              height: 400,
-              decoration: const BoxDecoration(
-                color: Color(0xFF000AFF),
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(150),
-                  bottomRight: Radius.circular(150),
-                  topLeft: Radius.circular(0),
-                  topRight: Radius.circular(0),
+              width: 330,
+              height: 53,
+              margin: const EdgeInsetsDirectional.fromSTEB(10, 5, 10, 5),
+              decoration: BoxDecoration(
+                color: const Color.fromRGBO(255, 255, 255, 1),
+                borderRadius: BorderRadius.circular(13),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5), // Shadow color
+                    spreadRadius: 5.0, // Adjusts how far the shadow spreads
+                    blurRadius: 7.0, // Adjusts the blur amount of the shadow
+                    offset: const Offset(0.0, 4.0), // Adjusts the shadow's offset
+                  ),
+                ],
+              ),
+              child: DropdownButton<String>(
+                padding: const EdgeInsets.all(15),
+                value: servers[0].value,
+                onChanged: (value) {},
+                items: servers,
+                icon: const Icon(
+                  Icons.keyboard_arrow_down_rounded,
+                  size: 24,
                 ),
-                shape: BoxShape.rectangle,
+                underline: Container(),
+                isExpanded: true,
               ),
             ),
-            Center(
-              child: MaterialButton(
-                onPressed: () {
-                  print('Button pressed ...');
-                },
-                color: Colors.white,
-                elevation: 3,
-                shape: CircleBorder(),
-                padding: EdgeInsets.all(30),
-                child: Icon(
-                  Icons.power_settings_new,
-                  color: Color(0xFF000AFF),
-                  size: 100,
-                ),
-              ),
-            ),
-            Align(
-              alignment: AlignmentDirectional(0.05, -0.88),
-              child: Container(
-                padding: EdgeInsets.all(10),
-                width: 300,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: Color(0xFF000AFF),
-                    width: 2,
-                  ),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: servers[0].value,
-                    onChanged: (String? newValue) {},
-                    items: servers,
-                    icon: const Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      size: 24,
-                    ),
-                  ),
-                ),
-              ),
-            ),
-            Align(
-              alignment: AlignmentDirectional(0.12, -0.65),
-              child: Container(
-                padding: EdgeInsets.all(10),
-                width: 300,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(
-                    color: Color(0xFF000AFF),
-                    width: 2,
-                  ),
-                ),
-                child: DropdownButtonHideUnderline(
-                  child: DropdownButton<String>(
-                    value: dataSizes[0].value.toString(),
-                    onChanged: (String? newValue) {},
-                    items: dataSizes.map((item) {
-                      return DropdownMenuItem(
-                        child: Text(item.value.toString() + 'Mb'),
-                        value: item.value.toString(),
-                      );
-                    }).toList(),
-                    icon: const Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      size: 24,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            const SizedBox(height: 40),
+            const FunctionForm(),
           ],
         ),
       ),
     );
   }
 }
+
   // @override
   // Widget build(BuildContext context) {
   //   return Scaffold(
@@ -227,3 +166,17 @@ class _SpeedTestPageState extends State<SpeedTestPage> {
   //     ),
   //   );
   // }
+// MaterialButton(
+//                 onPressed: () {
+//                   print('Button pressed ...');
+//                 },
+//                 color: Colors.white,
+//                 elevation: 3,
+//                 shape: CircleBorder(),
+//                 padding: EdgeInsets.all(30),
+//                 child: Icon(
+//                   Icons.power_settings_new,
+//                   color: Color(0xFF000AFF),
+//                   size: 100,
+//                 ),
+//               ),

@@ -2,7 +2,7 @@ import 'package:http/http.dart' as http;
 import '../main.dart';
 
 Future<double> downloadTest() async {
-  const double expectedLength = 100000000; // 100 MB in bits
+  const double expectedLength = 1000000; // 100 MB in bits
   final url = Uri.parse('$serverUrl/download');
   final DateTime startTime = DateTime.now();
   final response = await http.get(url);
@@ -14,6 +14,6 @@ Future<double> downloadTest() async {
   // Ensure that the time difference is not zero to avoid division by zero
   final double downloadSpeed =
       timeDifference > 0 ? (expectedLength / timeDifference) : 0;
-
+      
   return downloadSpeed;
 }

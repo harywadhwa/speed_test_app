@@ -3,8 +3,16 @@ import 'package:http/http.dart' as http;
 import '../main.dart';
 import 'package:path_provider/path_provider.dart';
 
+Future<File> getFile() async {
+  Directory appDocDir = await getApplicationDocumentsDirectory();
+  File file = File('${appDocDir.path}/testfile.txt');
+  await file.writeAsString('0' * 1000000); // Write a 100 MB file
+  return file;
+}
+
+
 Future<double> uploadTest() async {
-  const double expectedLength = 100000000; // 1 MB in bits
+  const double expectedLength = 1000000; // 1 MB in bits
   final url = Uri.parse('$serverUrl/upload');
   final DateTime startTime = DateTime.now();
 
@@ -35,9 +43,3 @@ Future<double> uploadTest() async {
   return uploadSpeed;
 }
 
-Future<File> getFile() async {
-  Directory appDocDir = await getApplicationDocumentsDirectory();
-  File file = File('${appDocDir.path}/testfile.txt');
-  await file.writeAsString('0' * 100000000); // Write a 100 MB file
-  return file;
-}
