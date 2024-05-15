@@ -3,21 +3,21 @@ import 'package:http/http.dart' as http;
 import '../main.dart';
 import 'package:path_provider/path_provider.dart';
 
-Future<File> getFile() async {
+Future<File> getFile(int data) async {
   Directory appDocDir = await getApplicationDocumentsDirectory();
   File file = File('${appDocDir.path}/testfile.txt');
-  await file.writeAsString('0' * 1000000); // Write a 100 MB file
+  await file.writeAsString('0' * (data * 1000000)); // Write a 100 MB file
   return file;
 }
 
 
-Future<double> uploadTest() async {
-  const double expectedLength = 1000000; // 1 MB in bits
+Future<double> uploadTest(int data) async {
+  final double expectedLength = data * 1000000; // 1 MB in bits
   final url = Uri.parse('$serverUrl/upload');
   final DateTime startTime = DateTime.now();
 
   // Get a file from device storage to simulate uploading
-  File file = await getFile();
+  File file = await getFile(data);
 
   // Create a multipart request
   var request = http.MultipartRequest('POST', url);

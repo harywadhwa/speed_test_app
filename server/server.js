@@ -32,7 +32,7 @@ app.post('/upload', (req, res) => {
 
 
 app.get('/download', (req, res) => {
-  const textContent = generateTextContent(100000000);
+  const textContent = generateTextContent(1000000);
   const filePath = path.join(__dirname, '100Mb_textfile.txt');
 
   // Write text content to file
