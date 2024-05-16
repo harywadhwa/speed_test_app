@@ -1,11 +1,14 @@
+import 'dart:convert';
+
 import 'package:http/http.dart' as http;
 import '../main.dart';
+
 
 Future<double> downloadTest(int data) async {
   final double expectedLength = data * 1000000; // 100 MB in bits
   final url = Uri.parse('$serverUrl/download');
   final DateTime startTime = DateTime.now();
-  final response = await http.get(url);
+  final response = await http.post(url, body: jsonEncode({'data': data.toString()}));
   final DateTime endTime = DateTime.now();
 
   // Calculate the time difference in milliseconds

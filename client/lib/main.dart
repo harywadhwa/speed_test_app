@@ -6,7 +6,7 @@ import 'controllers/download_func.dart';
 import 'controllers/upload_func.dart';
 import 'widgets/function_form.dart';
 
-const String HOST = '192.168.1.7';
+const String HOST = '192.168.1.24';
 const int PORT = 1234;
 const String serverUrl = 'http://$HOST:$PORT';
 
@@ -41,8 +41,7 @@ class SpeedTestPage extends StatefulWidget {
 }
 
 class _SpeedTestPageState extends State<SpeedTestPage> {
-  double downloadSpeed = 0.0;
-  double uploadSpeed = 0.0;
+  
 
   int dataSize(List<DataType> dataTypes){
     for (int i = 0; i < dataTypes.length; i++) {
@@ -51,38 +50,6 @@ class _SpeedTestPageState extends State<SpeedTestPage> {
       }
     }
     return 0;
-  }
-
-  void startDownloadTest(int data) {
-    double totalDownloadSpeed = 0.0;
-    for (int i = 0; i < 10; i++) {
-      downloadTest(data).then((value) {
-        //new method
-        setState(() {
-          downloadSpeed = value;
-        });
-        totalDownloadSpeed += value;
-      });
-    }
-    setState(() {
-      downloadSpeed = totalDownloadSpeed / 10; // Calculate average speed
-    });
-  }
-
-  void startUploadTest(int data) {
-    double totalUploadSpeed = 0.0;
-    for (int i = 0; i < 10; i++) {
-      uploadTest(data).then((value) {
-        //new method
-        setState(() {
-          uploadSpeed = value;
-        });
-        totalUploadSpeed += value;
-      });
-    }
-    setState(() {
-      uploadSpeed = totalUploadSpeed / 10; // Calculate average speed
-    });
   }
 
   @override

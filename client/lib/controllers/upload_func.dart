@@ -1,7 +1,8 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import '../main.dart';
 import 'package:path_provider/path_provider.dart';
+import '../main.dart';
 
 Future<File> getFile(int data) async {
   Directory appDocDir = await getApplicationDocumentsDirectory();
@@ -10,9 +11,8 @@ Future<File> getFile(int data) async {
   return file;
 }
 
-
 Future<double> uploadTest(int data) async {
-  final double expectedLength = data * 1000000; // 1 MB in bits
+  final double expectedLength = data * 1000000; // Size of the file to upload in bits
   final url = Uri.parse('$serverUrl/upload');
   final DateTime startTime = DateTime.now();
 
@@ -32,14 +32,12 @@ Future<double> uploadTest(int data) async {
   await response.stream.drain();
 
   final DateTime endTime = DateTime.now();
-
+  
   // Calculate the time difference in milliseconds
   final timeDifference = endTime.difference(startTime).inMilliseconds;
 
   // Ensure that the time difference is not zero to avoid division by zero
-  final double uploadSpeed =
-      timeDifference > 0 ? (expectedLength / timeDifference) : 0;
+  final double uploadSpeed = timeDifference > 0 ? (expectedLength / timeDifference) : 0;
 
   return uploadSpeed;
 }
-
